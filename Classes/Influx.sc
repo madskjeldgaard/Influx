@@ -441,7 +441,8 @@ Influx :InfluxBase {
 			var myOffsets = outOffsets[funcName];
 			var myProc = outProcs[funcName];
 			mappedKeyValList = paramNames.collect { |extParName, i|
-				var inflOutName = outNames[i];
+				var index = i % outNames.size;
+				var inflOutName = outNames[index];
 				var inflVal = outValDict[inflOutName];
 				var mappedVal;
 
