@@ -413,11 +413,22 @@ Influx :InfluxBase {
 	attachMapped { |object, funcName, paramNames, specs, proc|
 		var mappedKeyValList;
 		var offDict = ();
-		specs = specs ?? { object.getSpec; };
 		funcName = funcName ?? { object.key };
 		paramNames = paramNames
 		?? { object.getHalo(\orderedNames); }
 		?? { object.controlKeys; };
+
+		specs = specs ?? { object.getSpec };
+
+		// If none of the above, use baseSpec
+		specs = if(specs.isNil, {
+			var dict = ();
+
+			paramNames.do{|param|
+				dict.put(param, baseSpec)
+			}
+
+		}, { specs });
 
 		paramNames.do(offDict.put(_, 0));
 
