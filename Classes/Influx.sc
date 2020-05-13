@@ -426,7 +426,9 @@ Influx :InfluxBase {
 
 			paramNames.do{|param|
 				dict.put(param, baseSpec)
-			}
+			};
+
+			dict
 
 		}, { specs });
 
